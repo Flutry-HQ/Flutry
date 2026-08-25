@@ -3,6 +3,7 @@ import path from 'path';
 import { pathToFileURL } from 'url';
 import DatabaseFunctions from '../function';
 import { Connect } from '../connect';
+import { logger } from '../../../common/logger.service';
 
 export default class Models {
   private readonly functions = new DatabaseFunctions();
@@ -32,9 +33,9 @@ export default class Models {
       } else {
         await Connect.sequelize.sync();
       }
-      console.log('All models were synchronized successfully.');
+      logger.info('All models were synchronized successfully.');
     } catch (error) {
-      console.error('Unable to synchronize models:', error);
+      logger.error('Unable to synchronize models:', error);
       throw error;
     }
   }
@@ -68,10 +69,10 @@ export default class Models {
         ModelClass.initialize(Connect.sequelize);
         this.models[ModelClass.name] = ModelClass;
       } else {
-        console.log(`Model at ${filePath} does not have an initialize method.`);
+        logger.info(`Model at ${filePath} does not have an initialize method.`);
       }
     } catch (error) {
-      console.error(`Failed to load model at ${filePath}`, error);
+      logger.error(`Failed to load model at ${filePath}`, error);
     }
   };
 }

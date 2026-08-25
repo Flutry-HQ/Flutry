@@ -1,12 +1,10 @@
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-
 import type { FastifyError, FastifyInstance } from 'fastify';
-
 import { Router } from './router';
-
 import type { RouteLoaderOptions } from './types';
+import { logger } from '../../common/logger.service';
 
 export class RouteLoader {
   private loaded = false;
@@ -31,6 +29,7 @@ export class RouteLoader {
   }
 
   private async scan(directory: string, basePath: string): Promise<void> {
+    logger.info(`=====================================`);
     const entries = await readdir(directory, {
       withFileTypes: true,
     });
@@ -78,7 +77,7 @@ export class RouteLoader {
     });
 
     if (process.env.NODE_ENV !== 'production') {
-      console.log(`Loaded route: ${prefix}`);
+      logger.info(`Loaded route: ${prefix}`);
     }
   }
 
@@ -165,7 +164,7 @@ export class RouteLoader {
     });
 
     this.app.setErrorHandler((error: FastifyError, _request, reply) => {
-      console.error(error);
+      logger.error(error as any);
 
       const statusCode = error.statusCode && error.statusCode >= 400 ? error.statusCode : 500;
 

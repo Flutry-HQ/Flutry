@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize';
 
 import DatabaseFunctions from './function';
 import Models from './models/models';
+import { logger } from '../../common/logger.service';
 
 export type DatabaseDialect = 'mysql' | 'mariadb';
 export interface DatabaseOptions {
@@ -46,7 +47,7 @@ export class Connect {
 
       Connect.connected = false;
     } catch (error) {
-      console.error('Error closing database connection:', error);
+      logger.error('Error closing database connection:', error);
     }
   }
 
@@ -55,23 +56,20 @@ export class Connect {
       await this.createConnection();
 
       await Connect.sequelize.authenticate();
-
-      console.log('Database connection established');
+      logger.info('Database connection established');
 
       await new Models().init();
 
       Connect.connected = true;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-
-      console.error(`Connection failed (${attempt}/${Connect.MAX_RETRIES}): ${message}`);
+      logger.error(`Connection failed (${attempt}/${Connect.MAX_RETRIES}): ${message}`);
 
       if (attempt >= Connect.MAX_RETRIES) {
-        console.log('Max retries reached. Database connection failed.', error);
+        logger.error('Max retries reached. Database connection failed.', error);
         process.exit(1);
       }
-
-      console.log(`Retrying in ${Connect.RETRY_DELAY / 1000}s...`);
+      logger.warn(`Retrying in ${Connect.RETRY_DELAY / 1000}s...`);
 
       await new Promise<void>((resolve) => setTimeout(resolve, Connect.RETRY_DELAY));
 

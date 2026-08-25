@@ -5,6 +5,7 @@ import { registerPlugins } from './plugins';
 import { registerLifecycle } from './lifecycle';
 import type { HttpOptions } from './types';
 import { RouteLoader } from '../../router';
+import { logger } from '../../common/logger.service';
 
 export class HttpServer {
   private readonly startTime = performance.now();
@@ -13,7 +14,11 @@ export class HttpServer {
 
   public readonly app: FastifyInstance;
 
-  public constructor(options: HttpOptions = {}) {
+  public constructor(
+    options: HttpOptions = {
+      prefix: '',
+    },
+  ) {
     const fastifyOptions: FastifyServerOptions = {
       trustProxy: options.trustProxy ?? true,
       logger: options.logger ?? false,
@@ -45,11 +50,11 @@ export class HttpServer {
     });
 
     const startupTime = performance.now() - this.startTime;
-
-    console.log(`Started in ${startupTime.toFixed(2)}ms`);
-
-    console.log(`Running on ${address}`);
-
+    logger.info(`=====================================`);
+    logger.info(`🚀 Flutry Server ${process.env.NODE_ENV}`);
+    logger.info(`⏰ Start Time: ${startupTime.toFixed(2)}ms`);
+    logger.info(`🌐 ${address}`);
+    logger.info(`=====================================`);
     return address;
   }
 
