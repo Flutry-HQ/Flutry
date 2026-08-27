@@ -50,3 +50,10 @@ export class JWT {
     throw new Error('Invalid token');
   }
 }
+
+export const {
+  decodeToken: decodeJwtToken,
+  generateToken: generateJwtToken,
+  getTokenExpiration: getJwtTokenExpiration,
+  verifyToken: verifyJwtToken,
+} = JWT;

@@ -51,3 +51,5 @@ export class Encryption {
     return decipher.update(text, undefined, 'utf8') + decipher.final('utf8');
   };
 }
+
+export const { comparePassword, decrypt, encrypt, hashPassword } = Encryption;

@@ -18,7 +18,7 @@ export class RouteLoader {
     if (this.loaded) {
       return;
     }
-
+    logger.info(`=====================================`);
     const directory = path.resolve(this.options.directory);
 
     await this.scan(directory, '');
@@ -29,7 +29,6 @@ export class RouteLoader {
   }
 
   private async scan(directory: string, basePath: string): Promise<void> {
-    logger.info(`=====================================`);
     const entries = await readdir(directory, {
       withFileTypes: true,
     });
