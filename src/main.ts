@@ -1,6 +1,6 @@
+import { Connect, DatabaseDialect } from '@flutry/database-sequlize';
+import { HttpServer } from '@flutry/server';
 import 'dotenv/config';
-import { Connect, DatabaseDialect } from './package/database';
-import { HttpServer } from './package/http';
 
 async function bootstrap() {
   const server = new HttpServer({

@@ -80,3 +80,9 @@ temp/
 *.sqlite
 *.sqlite3
 *.db
+# Package manager lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock
+bun.lockb

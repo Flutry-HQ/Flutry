@@ -11,25 +11,14 @@
   "author": "HEDI <admin@otamoon.hu>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.3.0",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@fastify/compress": "^9.2.0",
-    "@fastify/cookie": "^11.1.2",
-    "@fastify/helmet": "^13.1.1",
-    "argon2": "^0.45.1",
-    "fastify": "^5.12.1",
-    "ioredis": "^6.0.0",
-    "jsonwebtoken": "^9.0.3",
-    "mariadb": "^3.5.3",
-    "parse-duration": "^2.1.8",
-    "sequelize": "^6.37.8",
-    "winston": "^3.19.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "@flutry/common": "latest",
+    "@flutry/database-sequlize": "^0.0.11",
+    "@flutry/server": "latest"
   }
 }

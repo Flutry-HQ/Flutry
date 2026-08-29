@@ -1,4 +1,4 @@
-import { Router } from '../package/router';
+import { Router } from '@flutry/server';
 
 export default class IndexRoute extends Router {
   constructor() {
