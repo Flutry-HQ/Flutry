@@ -8,7 +8,8 @@ async function bootstrap() {
     logger: false,
     compression: true,
     helmet: true,
-    prefix: process.env.PREFIX_API ?? '',
+    prefix: process.env.PREFIX_API ?? '/',
+    socket: false,
   });
   if (process.env.DB === 'true') {
     await new Connect({
